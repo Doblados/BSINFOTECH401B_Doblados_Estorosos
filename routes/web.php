@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
-Route::get('/', function () {
+Route::get('/', [ProductController::class, 'index'])->name('shop.index');
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
 

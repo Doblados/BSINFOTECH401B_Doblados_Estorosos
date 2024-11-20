@@ -4,25 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop</title>
-    <!-- Bootstrap CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container my-5">
         <h1 class="text-center mb-4">Shop</h1>
-        <div class="text-end mb-4">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProductModal">Add Product</button>
-        </div>
 
         <!-- Product List -->
         <div class="row">
             @foreach ($products as $product)
                 <div class="col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100">
+                    <div class="card h-100" data-bs-toggle="modal" data-bs-target="#productModal" 
+                         onclick="showProductDetails('{{ $product->name }}', '{{ $product->price }}', '{{ asset('storage/' . $product->image) }}', '{{ $product->description }}')">
                         @if($product->image)
                             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                         @else
-                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="No Image">
+                            <img src="{{ asset('storage/products/noImg.png') }}" class="card-img-top" alt="No Image">
                         @endif
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>
@@ -34,40 +32,38 @@
         </div>
     </div>
 
-    <!-- Add Product Modal -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <!-- Product Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form method="POST" action="{{ route('product.store') }}" enctype="multipart/form-data">
-                    @csrf
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="addProductModalLabel">Add Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <img id="productImage" src="" class="img-fluid rounded" alt="Product Image">
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="productName" class="form-label">Product Name</label>
-                            <input type="text" class="form-control" id="productName" name="name" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productPrice" class="form-label">Price</label>
-                            <input type="number" class="form-control" id="productPrice" name="price" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="productImage" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="productImage" name="image">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </div>
-                </form>
+                    <h4 id="productName" class="text-center"></h4>
+                    <p id="productPrice" class="text-center"></p>
+                    <p id="productDescription" class="mt-3"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function showProductDetails(name, price, imageUrl, description) {
+            document.getElementById('productName').textContent = name;
+            document.getElementById('productPrice').textContent = `Price: $${price}`;
+            document.getElementById('productImage').src = imageUrl || `{{ asset('storage/products/noImg.png') }}`;
+            document.getElementById('productDescription').textContent = description || 'No description available.';
+        }
+    </script>
 </body>
 </html>
