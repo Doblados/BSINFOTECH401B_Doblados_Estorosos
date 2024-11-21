@@ -6,26 +6,9 @@
     <title>Shop</title>
 
     <style>
-        .custom-modal .modal-dialog {
-            max-width: 300px; /* Adjust modal width here */
-        }
-
-        /* Styling the product image in the modal */
         #productImage {
-            max-width: 80%; /* Ensure image doesn't exceed modal width */
-            max-height: 300px; /* Limit height to avoid very large images */
-        }
-
-        /* Centering the modal content */
-        .modal-footer {
-            display: flex;
-            justify-content: center; /* Center the buttons horizontally */
-            gap: 15px; /* Add space between buttons */
-        }
-
-        /* Adjusting modal body */
-        .modal-body {
-            text-align: center; /* Center the content in the modal body */
+            max-width: 80%;
+            max-height: 300px;
         }
 
         .card-img-top {
