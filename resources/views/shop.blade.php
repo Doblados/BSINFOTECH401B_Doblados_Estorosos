@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: #E5C9D7;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,7 +30,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css" integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
+<body style="background-color: #E5C9D7 !important;">
     <div class="container my-5">
         <h1 class="text-center mb-4">Shop</h1>
 
@@ -50,14 +50,14 @@
         <div class="row">
             @foreach ($products as $product)
                 <div class="content col-md-4 col-sm-6 mb-4">
-                    <div class="card h-100" data-bs-toggle="modal" data-bs-target="#productModal"
+                    <div class="card h-100" style="border-radius: 10px;" data-bs-toggle="modal" data-bs-target="#productModal"
                          onclick="showProductDetails('{{ $product->id }}', '{{ $product->name }}', '{{ $product->price }}', '{{ asset('storage/' . $product->image) }}', '{{ $product->description }}')">
                         @if($product->image)
                             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
                         @else
                             <img src="{{ asset('storage/products/noImg.png') }}" class="card-img-top" alt="No Image">
                         @endif
-                        <div class="card-body">
+                        <div class="card-body" style="border-radius: 10px; text-align: center;">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">Price: ${{ $product->price }}</p>
                         </div>
