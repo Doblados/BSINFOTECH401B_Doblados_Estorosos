@@ -16,13 +16,11 @@
             width: 100%;
         }
 
-        .card {
-            width: 320px;
-        }
         .content
         {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        
         .content:hover
         {
             transform: scale(1.05);
