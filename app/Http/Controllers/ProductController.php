@@ -12,8 +12,19 @@ class ProductController extends Controller
     //
     public function index()
     {
-        $products = Product::all(); // Retrieve products
-        return view('shop', compact('products')); // Point to 'shop.blade.php'
+        $products = Product::all();
+        return view('shop', compact('products'));
+    }
+
+    public function showProduct($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            abort(404, 'Product not found.');
+        }
+
+        return view('product-details', compact('product'));
     }
 
     public function create()
@@ -32,9 +43,9 @@ class ProductController extends Controller
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
-            Log::debug("Image path: " . $imagePath); // Log the stored file path
+            Log::debug("Image path: " . $imagePath);
         }
-        // Validate the input data
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'price' => 'required|numeric|min:0',
@@ -43,6 +54,10 @@ class ProductController extends Controller
         ]);
 
         $product = Product::findOrFail($id);
+
+        if (!$request->hasFile('image')) {
+            return redirect()->back()->withInput()->with('failed', 'Image is required. Please upload a valid image.');
+        }
 
         if ($request->hasFile('image')) {
             if ($product->image) {
@@ -64,6 +79,10 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+
+        if (!$request->hasFile('image')) {
+            return redirect()->back()->withInput()->with('failed', 'Image is required. Please upload a valid image.');
+        }
     
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('products', 'public');
