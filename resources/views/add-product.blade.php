@@ -10,6 +10,16 @@
     <div class="container my-5">
         <h1 class="text-center mb-4">Add Product</h1>
 
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @elseif(session('failed'))
+            <div class="alert alert-danger">
+                {{ session('failed') }}
+            </div>
+        @endif 
+
         <form action="{{ route('product.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="mb-3">
