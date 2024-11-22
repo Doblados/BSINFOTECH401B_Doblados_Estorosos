@@ -25,6 +25,15 @@
         {
             transform: scale(1.05);
         }
+
+        .custom-modal-width {
+            max-width: 30%;
+        }
+
+        .modal-footer {
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -59,7 +68,7 @@
                         @endif
                         <div class="card-body" style="border-radius: 10px; text-align: center;">
                             <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text">Price: ${{ $product->price }}</p>
+                            <p class="card-text">Price: ₱{{ $product->price }}</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +78,7 @@
 
     <!-- Product Details Modal -->
     <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg custom-modal">
+        <div class="modal-dialog custom-modal-width modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="productModalLabel">Product Details</h5>
@@ -88,7 +97,7 @@
                     <form action="{{ route('product.destroy', $product->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="_method" value="DELETE">
-                        <button type="submit" class="btn btn-primary">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
             </div>
@@ -100,7 +109,7 @@
     <script>
         function showProductDetails(id, name, price, imageUrl, description) {
             document.getElementById('productName').textContent = name;
-            document.getElementById('productPrice').textContent = `Price: $${price}`;
+            document.getElementById('productPrice').textContent = `Price: ₱${price}`;
             document.getElementById('productImage').src = imageUrl || `{{ asset('storage/products/noImg.png') }}`;
             document.getElementById('productDescription').textContent = description || 'No description available.';
         }
