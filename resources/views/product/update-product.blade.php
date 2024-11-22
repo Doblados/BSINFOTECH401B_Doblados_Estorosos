@@ -9,15 +9,15 @@
 </head>
 <body>
     <div class="container my-5">
-        <h1 class="text-center mb-4">Add Product</h1>
+        <h1 class="text-center mb-4">Update Product</h1>
 
-        @if($errors->any())
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @elseif(session('failed'))
             <div class="alert alert-danger">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+                {{ session('failed') }}
             </div>
         @endif
 
