@@ -107,7 +107,7 @@
                         <a href="{{ route('update-product', $product->id) }}" class="btn btn-primary" id="updateProductButton">Update</a>
                         <form action="{{ route('product.destroy', $product->id) }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
+                            <input type="hidden" name="_method" value="DELETE">
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     @else
